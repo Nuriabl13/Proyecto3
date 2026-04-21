@@ -1,6 +1,10 @@
 package hlanz.programacion.criptoanalisis;
 
+import hlanz.programacion.criptoanalisis.util.AnalizadorFrase;
+
 import java.io.*;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Idioma {
@@ -9,7 +13,8 @@ public class Idioma {
 
     public Idioma(String nombre, String ruta) throws IOException{
         this.nombre = nombre;
-        FileReader f = new FileReader(new File(ruta));
+        this.palabras = new HashSet<>();
+        FileReader f = new FileReader(ruta);
         BufferedReader b = new BufferedReader(f);
         boolean repetir = true;
         while (repetir){
@@ -36,6 +41,24 @@ public class Idioma {
     }
 
     public boolean contieneFrase(String frase, int porcentajeTolerancia){
-        return false;
+        boolean resultado = false;
+        if (porcentajeTolerancia < 0 || porcentajeTolerancia > 100){
+            throw new IllegalArgumentException("El porcentaje de tolerancia debe estar entre 0 y 100");
+        }else {
+            AnalizadorFrase a = new AnalizadorFrase(frase);
+            int numPalabras = a.getNumeroPalabras();
+            int numCorresponden = (numPalabras*100)/porcentajeTolerancia;
+            List<String> listaPalabras = a.getPalabras();
+            int contador = 0;
+            for (String i : listaPalabras){
+                if (this.contienePalabra(i)){
+                    contador++;
+                }
+            }
+            if (contador>numCorresponden){
+                resultado = true;
+            }
+        }
+        return resultado;
     }
 }
