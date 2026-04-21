@@ -1,6 +1,6 @@
 package hlanz.programacion.criptoanalisis;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.Set;
 
 public class Idioma {
@@ -8,7 +8,19 @@ public class Idioma {
     private Set<String> palabras;
 
     public Idioma(String nombre, String ruta) throws IOException{
-
+        this.nombre = nombre;
+        FileReader f = new FileReader(new File(ruta));
+        BufferedReader b = new BufferedReader(f);
+        boolean repetir = true;
+        while (repetir){
+            String linea = b.readLine();
+            if (linea == null){
+                repetir = false;
+                b.close();
+            }else {
+                this.palabras.add(linea);
+            }
+        }
     }
 
     public String getNombre(){
@@ -16,7 +28,11 @@ public class Idioma {
     }
 
     public boolean contienePalabra(String p){
-        return false;
+        boolean resultado = false;
+        if (this.palabras.contains(p)){
+            resultado = true;
+        }
+        return resultado;
     }
 
     public boolean contieneFrase(String frase, int porcentajeTolerancia){
