@@ -23,7 +23,7 @@ public class Idioma {
                 repetir = false;
                 b.close();
             }else {
-                this.palabras.add(linea);
+                this.palabras.add(linea.toUpperCase());
             }
         }
     }
