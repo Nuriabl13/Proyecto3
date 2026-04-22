@@ -20,7 +20,6 @@ javafx{
 
 dependencies {
     testImplementation("junit:junit:4.13.2")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 tasks.test {
