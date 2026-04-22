@@ -1,5 +1,7 @@
 package hlanz.programacion.criptografia.general;
 
-public interface CriptografiaAbstractFactory {
-    public abstract CriptografiaAbstractFactory getFactory(AlgoritmoCifrado algoritmo);
+public class CriptografiaAbstractFactory {
+    public static CriptografiaAbstractFactory getFactory(AlgoritmoCifrado algoritmo){
+        return null;
+    }
 }
