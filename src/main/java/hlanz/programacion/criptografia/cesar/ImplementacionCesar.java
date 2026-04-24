@@ -1,16 +1,73 @@
 package hlanz.programacion.criptografia.cesar;
 
-public class ImplementacionCesar {
-    ImplementacionCesar(){
+import hlanz.programacion.criptoanalisis.util.AnalizadorFrase;
+import hlanz.programacion.criptografia.general.Cifrador;
+import hlanz.programacion.criptografia.general.Descifrador;
+
+import java.util.List;
+
+public class ImplementacionCesar implements Descifrador , Cifrador {
+    ImplementacionCesar() {
     }
+
     //Ningun metodo esta programado aún
-    protected  char getLetraDesplazada(char letra , int desplazamiento){
-        return letra;
+    protected static char getLetraDesplazada(char letra, int desplazamiento) {
+        if (letra < 65 || letra > 90) {
+            throw new IllegalArgumentException("Solo se pueden desplazar letras mayúsculas");
+        }
+        int nuevaLetra = letra + desplazamiento;
+        char letraDesplazada = (char) nuevaLetra;
+        if (letra == 'Z' && desplazamiento > 0) {
+            letraDesplazada = 'A';
+        } else if (letra == 'A' && desplazamiento < 0) {
+            letraDesplazada = 'Z';
+        }
+        return letraDesplazada;
     }
-    protected String desplazarPalabra(String palabra, int desplazamiento){
-        return palabra;
+
+    protected static String desplazarPalabra(String palabra, int desplazamiento) {
+        String palabraMayus = palabra.toUpperCase();
+        StringBuilder palabraDesplazada = new StringBuilder();
+        for (int i = 0; i < palabra.length(); i++) {
+            char letra = ImplementacionCesar.getLetraDesplazada(palabraMayus.charAt(i), desplazamiento);
+            palabraDesplazada.append(letra);
+        }
+        return palabraDesplazada.toString();
     }
-    protected String desplazarLetrasFrases(String frase , int desplazamiento){
-        return frase;
+
+    protected static String desplazarLetrasFrases(String frase, int desplazamiento) {
+        AnalizadorFrase a = new AnalizadorFrase(frase);
+        List<String> palabras = a.getPalabras();
+        StringBuilder p = new StringBuilder();
+        for (int i = 0; i < a.getNumeroPalabras(); i++) {
+            String palabra = palabras.get(i);
+            String palabraDesplazada = ImplementacionCesar.desplazarPalabra(palabra, desplazamiento);
+            if (!(palabras.indexOf(palabra) == palabras.size() - 1)) {
+                p.append(palabraDesplazada+" ");
+            } else {
+                p.append(palabraDesplazada);
+            }
+        }
+        return p.toString();
+    }
+
+    @Override
+    public String cifrar(String texto, String clave) {
+        int c = Integer.parseInt(clave);
+        if (c < 0){
+            throw new IllegalArgumentException("La clave debe ser un numero positivo");
+        }
+        return ImplementacionCesar.desplazarLetrasFrases(texto,c);
+    }
+
+    @Override
+    public String descifrador(String texto, String clave) {
+        int c = Integer.parseInt(clave);
+        if (c < 0){
+            throw new IllegalArgumentException("La clave debe ser un numero positivo");
+        }
+        return ImplementacionCesar.desplazarLetrasFrases(texto,-c);
+
+        // this.cifrar(texto,"-"+clave); --> no se si esta bien
     }
 }
