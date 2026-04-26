@@ -6,26 +6,31 @@ import hlanz.programacion.criptografia.general.Descifrador;
 
 import java.util.List;
 
-public class ImplementacionCesar implements Descifrador , Cifrador {
-    ImplementacionCesar() {
+public  class ImplementacionCesar implements Cifrador , Descifrador {
+    ImplementacionCesar(){
     }
-
-    //Ningun metodo esta programado aún
     protected static char getLetraDesplazada(char letra, int desplazamiento) {
         if (letra < 65 || letra > 90) {
             throw new IllegalArgumentException("Solo se pueden desplazar letras mayúsculas");
         }
-        int nuevaLetra = letra + desplazamiento;
-        char letraDesplazada = (char) nuevaLetra;
-        if (letra == 'Z' && desplazamiento > 0) {
-            letraDesplazada = 'A';
-        } else if (letra == 'A' && desplazamiento < 0) {
-            letraDesplazada = 'Z';
-        }
-        return letraDesplazada;
-    }
 
-    protected static String desplazarPalabra(String palabra, int desplazamiento) {
+
+        int nuevaLetra = letra + desplazamiento;
+
+
+        if (nuevaLetra > 90) {
+
+            nuevaLetra = nuevaLetra - 26;
+        }
+
+        else if (nuevaLetra < 65 ) {
+
+            nuevaLetra = nuevaLetra + 26;
+        }
+
+        return (char) nuevaLetra;
+    }
+protected static String desplazarPalabra(String palabra, int desplazamiento) {
         String palabraMayus = palabra.toUpperCase();
         StringBuilder palabraDesplazada = new StringBuilder();
         for (int i = 0; i < palabra.length(); i++) {
