@@ -11,7 +11,7 @@ repositories {
 }
 
 application{
-    mainClass=""
+    mainClass="hlanz.programacion.ProgramaCriptoAnalisis"
 }
 javafx{
     modules("javafx.controls","javafx.fxml")
