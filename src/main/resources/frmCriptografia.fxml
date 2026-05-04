@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="561.0" prefWidth="600.0" spacing="10.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hlanz.programacion.controladores.FrmCriptografiaControlador">
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+   <children>
+      <HBox prefHeight="36.0" prefWidth="580.0">
+         <children>
+            <Label text="Algoritmo" />
+            <ComboBox fx:id="cmbCifrado" prefWidth="150.0" />
+            <Label text="Clave" />
+            <TextField fx:id="txtClave" />
+         </children>
+      </HBox>
+      <HBox prefHeight="37.0" prefWidth="580.0">
+         <children>
+            <Label text="Operación: " />
+            <RadioButton fx:id="optCifrar" mnemonicParsing="false" selected="true" text="Cifrar">
+               <toggleGroup>
+                  <ToggleGroup fx:id="grupoOperacion" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="optDescifrar" mnemonicParsing="false" text="Descifrar" toggleGroup="$grupoOperacion" />
+         </children>
+      </HBox>
+      <HBox prefHeight="33.0" prefWidth="580.0">
+         <children>
+            <Label text="Texto de entrada: " />
+            <Button fx:id="btnElegirArchivo" mnemonicParsing="false" prefHeight="25.0" prefWidth="165.0" text="Elegir archivos" />
+         </children>
+      </HBox>
+      <TextArea fx:id="txtEntrada" prefHeight="200.0" prefWidth="200.0" />
+      <Button fx:id="btnAccion" alignment="CENTER" mnemonicParsing="false" onAction="#onBtnAccion" prefHeight="25.0" prefWidth="601.0" text="Cifrar" />
+      <Label text="Texto de salida:" />
+      <TextArea fx:id="txtSalida" editable="false" prefHeight="200.0" prefWidth="200.0" />
+   </children>
+</VBox>
